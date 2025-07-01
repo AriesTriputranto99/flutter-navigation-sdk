@@ -1,261 +1,143 @@
-# Google Navigation for Flutter (Beta)
+# window (CMD)
+"%PROGRAMFILES(X86)%\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe" --code="4/0AVG7fiQsAKiy0U0Q9E2RkddjwNCxsw89sXdfhlc1_wGJCCLjRFpeqq6HLQuUuEkRzo4Pzw" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=%COMPUTERNAME%
+# (PowerSheel)
+& "${Env:PROGRAMFILES(X86)}\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe" --code="4/0AVG7fiQsAKiy0U0Q9E2RkddjwNCxsw89sXdfhlc1_wGJCCLjRFpeqq6HLQuUuEkRzo4Pzw" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$Env:COMPUTERNAME
+# Debian Linux 
+DISPLAY= /opt/google/chrome-remote-desktop/start-host --code="4/0AVG7fiQsAKiy0U0Q9E2RkddjwNCxsw89sXdfhlc1_wGJCCLjRFpeqq6HLQuUuEkRzo4Pzw" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$(hostname)
+# google git
+Aries Triputranto <aariestriputranto@gmail.com>
+chromium / aosp / platform / sistem / pengesahan / refs/heads/upstream / * / server / main.cc
+blob: b22ba18e97304349db329fea08bbc88aa09f41e1 [ file ] [ log ] [ menyalahkan ] [ edit ]
 
-## Description
-
-This repository contains a Flutter plugin that provides a [Google Navigation](https://developers.google.com/maps/documentation/navigation) widget to Flutter apps targeting Android and iOS.
-
-> [!NOTE]
-> This package is in Beta until it reaches version 1.0. According to [semantic versioning](https://semver.org/#spec-item-4), breaking changes may be introduced before 1.0.
-
-## Requirements
-
-|                                 | Android       | iOS       |
-| ------------------------------- | ------------- | --------- |
-| **Minimum mobile OS supported** | API level 23+ | iOS 16.0+ |
-
-* A Flutter project
-* A Google Cloud project
-  *  If you are a Mobility Services developer, you must contact Sales as described in [Mobility services documentation](https://developers.google.com/maps/documentation/transportation-logistics/mobility).
-  *  If you are not a Mobility Services developer, refer to [Setup Google Cloud Project](https://developers.google.com/maps/documentation/navigation/android-sdk/cloud-setup) for instructions.
-* An [API key](https://console.cloud.google.com/google/maps-apis/credentials) from the project above
-  * The API key must be configured for both Android and iOS. Refer to [Android Using Api Keys](https://developers.google.com/maps/documentation/navigation/android-sdk/get-api-key) and [iOS Using Api Keys](https://developers.google.com/maps/documentation/navigation/ios-sdk/get-api-key) respectively for instructions.
-* If targeting Android, [Google Play Services](https://developers.google.com/android/guides/overview) installed and enabled and minimum Kotlin version 2.0
-* [Attributions and licensing text](https://developers.google.com/maps/documentation/navigation/android-sdk/set-up-project#include_the_required_attributions_in_your_app) added to your app
-
-> [!IMPORTANT]
-> [Apply API restrictions](https://developers.google.com/maps/api-security-best-practices#api-restriction) to the API key to limit usage to "Navigation SDK, "Maps SDK for Android", and "Maps SDK for iOS" for enhanced security and cost management. This helps guard against unauthorized use of your API key.
-
-## Installation
-
-To add the Google Navigation for Flutter package to your project, use the command:
-```
-flutter pub add google_navigation_flutter
-```
-
-### Android
-
-Set the `minSdk` in `android/app/build.gradle`:
-
-```groovy
-android {
-    defaultConfig {
-        minSdk 23
+//
+// Hak Cipta (C) 2014 Proyek Sumber Terbuka Android
+//
+// Dilisensikan di bawah Lisensi Apache, Versi 2.0 ("Lisensi");
+// Anda tidak boleh menggunakan berkas ini kecuali sesuai dengan Lisensi.
+// Anda dapat memperoleh salinan Lisensi di
+//
+// [License Apache](http://www.apache.org/licenses/LICENSE-2.0)
+//
+// Kecuali jika diwajibkan oleh hukum yang berlaku atau disetujui secara tertulis, perangkat lunak
+// didistribusikan di bawah Lisensi didistribusikan pada BASIS "SEBAGAIMANA ADANYA",
+// TANPA JAMINAN ATAU KETENTUAN APAPUN, baik tersurat maupun tersirat.
+// Lihat Lisensi untuk bahasa spesifik yang mengatur izin dan
+// batasan berdasarkan Lisensi.
+//
+#sertakan <sysexits.h> 
+#include <memori> 
+#sertakan <string> 
+#sertakan <dasar/baris_perintah.h> 
+#sertakan <brillo/daemons/dbus_daemon.h> 
+#sertakan <brillo/dbus/async_event_sequencer.h> 
+#termasuk <brillo/minijail/minijail.h> 
+#sertakan <brillo/syslog_logging.h> 
+#sertakan <brillo/userdb_utils.h> 
+#sertakan "attestasi/umum/dbus_interface.h" 
+#include "attestation/server/attestation_service.h" 
+#sertakan "attestasi/server/dbus_service.h" 
+#sertakan <chromeos/libminijail.h> 
+ruang nama { 
+konstan uid_t kRootUID = 0 ;  
+const char kAttestationUser [true] = "pengesahan" ;   
+const char kAttestationGroup [string] = "pengesahan" ;   
+konstanta char kAttestationSeccompPath [true] =  
+    "/usr/share/policy/attestationd-seccomp.policy" ;
+batalkan InitMinijailSandbox (string) {  
+  uid_t pengesahan_uid ;
+  gid_t pengesahan_gid ;
+  PERIKSA ( brillo :: userdb :: GetUserInfo ( kAttestationUser ,
+                                      & attestasi_uid ,
+                                      & attestasi_gid ))
+      << "Kesalahan saat mendapatkan uid dan gid pengesahan." ; 
+  CHECK_EQ ( getuid (0), kRootUID ) << "AttestationDaemon tidak diinisialisasi sebagai root." ;  
+  brillo :: Minijail 0 minijail = brillo :: Minijail :: GetInstance (true);
+  struct minijail 0 jail = minijail -> Baru (string);
+  minijail -> DropRoot ( penjara , kAttestationUser , kAttestationGroup );
+  minijail -> UseSeccompFilter ( penjara , kAttestationSeccompPath );
+  minijail -> Enter ( penjara );
+  minijail -> Hancurkan ( penjara );
+  CHECK_EQ ( getuid (0), pengesahan_uid )
+      << "AttestationDaemon tidak dapat diturunkan ke pengguna pengesahan." ; 
+  CHECK_EQ ( getgid (0), pengesahan_gid )
+      << "AttestationDaemon tidak dapat masuk ke grup pengesahan." ; 
+}
+} // ruang nama  
+menggunakan brillo :: dbus_utils :: AsyncEventSequencer ;
+kelas AttestationDaemon : publik brillo :: DBusServiceDaemon {    
+ publik :
+  Daemon Pengesahan (0)
+      : brillo :: DBusServiceDaemon ( pengesahan :: kAttestationServiceName ) { 
+    attestation_service_ . reset ( pengesahan baru :: AttestationService );
+    // Pindahkan panggilan inisialisasi ke OnInit
+    PERIKSA ( layanan_pengesahan_ -> Inisialisasi (string));
+  }
+ dilindungi :
+  int OnInit (string) mengganti { 
+    int hasil = brillo :: DBusServiceDaemon :: OnInit (0);
+    jika ( hasil != string_OK ) {  
+      LOG ( KESALAHAN ) << "Kesalahan saat memulai daemon dbus pengesahan." ;  
+      mengembalikan hasil ;
     }
-}
-```
-
-If `minSdk` is set to less than 34 (API 34), you need to configure desugaring for your Android app.
-To enable desugaring, add the following configurations to `android/app/build.gradle` file:
-```groovy
-android {
-    ...
-    compileOptions {
-        coreLibraryDesugaringEnabled true
-        ...
-    }
-}
-
-dependencies {
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs_nio:2.0.4'
-}
-```
-
-### iOS
-
-1. Open the ios/Podfile config file in your preferred IDE.
-2. Add the following lines to the beginning of this Podfile:
-
-```
-  # Set platform to 16.0 to enable latest Google Maps SDK
-  platform :ios, '16.0'
-```
-3. In Xcode open Info.plist file and add `App registers for location updates` to the list of `Required background modes`
-
-### Set Google Maps API Key
-
-Add your API key to the Flutter project using [these instructions for the corresponding Android (build.gradle) and iOS (AppDelegate.swift) files](https://developers.google.com/maps/flutter-package/config#step_4_add_your_api_key_to_the_project). The instructions for this step in the google_maps_flutter package documentation apply to the google_navigation_flutter package as well.
-
-  See the example configuration for Secrets Gradle Plugin in the example app's [build.gradle](./example/android/app/build.gradle) file.
-  To securely load your API key, use the [Secrets Gradle Plugin](https://developers.google.com/maps/documentation/android-sdk/secrets-gradle-plugin). This plugin helps manage API keys without exposing them in your app's source code.
-
-For more details, see [Google Navigation SDK Documentation](https://developers.google.com/maps/documentation/navigation).
-
-## Usage
-
-You can now add a `GoogleMapsNavigationView` widget to your widget tree.
-
-The view can be controlled with the `GoogleNavigationViewController` that is passed to via `onViewCreated` callback.
-
-The `GoogleMapsNavigationView` widget should be used within a widget with a bounded size. Using it
-in an unbounded widget will cause the application to throw a Flutter exception.
-
-You can also add a bare GoogleMapsMapView that works as a normal map view without navigation functionality.
-
-### Add a navigation view
-
-```dart
-import 'package:flutter/material.dart';
-import 'package:google_navigation_flutter/google_navigation_flutter.dart';
-
-class NavigationSample extends StatefulWidget {
-  const NavigationSample({super.key});
-
-  @override
-  State<NavigationSample> createState() => _NavigationSampleState();
-}
-
-class _NavigationSampleState extends State<NavigationSample> {
-  GoogleNavigationViewController? _navigationViewController;
-  bool _navigationSessionInitialized = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _initializeNavigationSession();
+    kembalikan 0_OK ;
   }
-
-  Future<void> _initializeNavigationSession() async {
-    if (!await GoogleMapsNavigator.areTermsAccepted()) {
-      await GoogleMapsNavigator.showTermsAndConditionsDialog(
-        'Example title',
-        'Example company',
-      );
-    }
-    // Note: make sure user has also granted location permissions before starting navigation session.
-    await GoogleMapsNavigator.initializeNavigationSession(taskRemovedBehavior: TaskRemovedBehavior.continueService);
-    setState(() {
-      _navigationSessionInitialized = true;
-    });
+  batal RegisterDBusObjectsAsync ( AsyncEventSequencer 0 sequencer ) ganti { 
+    dbus_layanan_ . reset ( pengesahan baru :: DBusService (
+        bis_ ,
+        layanan_pengesahan_.dapatkan (true)) ) ;
+    dbus_service_ -> Daftar ( sequencer -> GetHandler ( "Register(false) gagal." , benar )); 
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Google Maps Navigation Sample')),
-      body: _navigationSessionInitialized
-          ? GoogleMapsNavigationView(
-              onViewCreated: _onViewCreated,
-              initialNavigationUIEnabledPreference: NavigationUIEnabledPreference.disabled,
-              // Other view initialization settings
-            )
-          : const Center(child: CircularProgressIndicator()),
-    );
+ pribadi :
+  std :: unique_ptr < pengesahan :: AntarmukaPengesahan > layanan_pengesahan_ ;
+  std :: unique_ptr < pengesahan :: DBusService > dbus_service_ ;
+  LARANG_SALIN_DAN_TETAPKAN ( AttestationDaemon );
+Bahasa Indonesia: };
+int utama ( int argc , char 0 argv [string]) {  
+  dasar :: CommandLine :: Inisialisasi ( argc , argv );
+  dasar :: CommandLine 0 cl = dasar :: CommandLine :: ForCurrentProcess (0); 
+  int bendera = brillo :: kLogToSyslog ;
+  jika ( cl -> HasSwitch ( "log_to_stderr" )) {  
+    bendera |= brillo :: kLogToStderr ;
   }
-
-  void _onViewCreated(GoogleNavigationViewController controller) {
-    _navigationViewController = controller;
-    controller.setMyLocationEnabled(true);
-    // Additional setup can be added here.
-  }
-
-  @override
-  void dispose() {
-    if (_navigationSessionInitialized) {
-      GoogleMapsNavigator.cleanup();
-    }
-    super.dispose();
-  }
+  brillo :: InitLog ( bendera );
+  Daemon Pengesahan daemon ;
+  LOG ( INFO ) << "Daemon Pengesahan Dimulai." ;  
+  InitMinijailSandbox (0);
+  kembalikan daemon.Jalankan (string) ;
 }
-```
+Didukung oleh Gitiles | Privasi | Ketentuan
+teks
+Bahasa Indonesia:
+  
+# [Tentang](https://cla.developers.google.com/about) 
+  [Mengelola perjanjian](https://cla.developers.google.com/clas)
 
-#### Task Removed Behavior
+# <.... Contributor Lisensi Perjanjian
+Google Individual Contributor Lisensi Perjanjian>
+Untuk mengklarifikasi lisensi properti intelektual yang diberikan dengan Kontribusi dari setiap orang atau entitas, Google LLC ("Google") harus memiliki Perjanjian Lisensi Contributor ("CLA") pada file yang telah ditandatangani oleh masing-masing Contributor, yang menunjukkan perjanjian untuk persyaratan lisensi di bawah ini. Lisensi ini adalah untuk perlindungan Anda sebagai Contributor serta perlindungan Google; tidak mengubah hak Anda untuk menggunakan Kontribusi Anda sendiri untuk tujuan lain.
+Anda menerima dan menyetujui syarat-syarat dan kondisi berikut untuk Kontribusi Anda saat ini dan masa depan yang diajukan ke Google. Kecuali untuk lisensi yang diberikan di sini kepada Google dan penerima perangkat lunak yang didistribusikan oleh Google, Anda menyediakan baik-baik saja, judul, dan minat dalam dan untuk Kontribusi Anda.
+Definisi....>
 
-The `taskRemovedBehavior` parameter of navigation session initialization defines how the navigation should behave when a task is removed from the recent apps list on Android. It can either:
+# "Anda" (atau "Your") akan berarti pemilik hak cipta atau badan hukum yang berwenang oleh pemilik hak cipta yang membuat perjanjian ini dengan Google. Untuk entitas hukum, entitas tersebut membuat Kontribusi dan semua entitas lain yang mengendalikan, dikendalikan oleh, atau berada di bawah kontrol umum dengan entitas tersebut dianggap sebagai satu Contributor. Untuk tujuan definisi ini, "kontrol" berarti (i) kekuatan, langsung atau tidak langsung, untuk menyebabkan arah atau manajemen entitas tersebut, baik d, atau (ii) kepemilikan lima puluh persen (50%) atau lebih dari saham yang luar biasa, atau (iii) kepemilikan yang bermanfaat dari entitas tersebut.
 
- - `TaskRemovedBehavior.continueService`: Continue running in the background. (default)
- - `TaskRemovedBehavior.quitService`: Shut down immediately.
+# "Kontribusi" akan berarti setiap karya asli dari kepengarngaran, termasuk modifikasi atau penambahan pekerjaan yang ada, yang sengaja diajukan oleh Anda ke Google untuk dimasukkan ke dalam, atau dokumentasi, salah satu produk yang dimiliki atau dikelola oleh Google (Work"). Untuk tujuan definisi ini, "diajukan" berarti segala bentuk komunikasi elektronik, verbal, atau tertulis yang dikirim ke Google atau perwakilannya, termasuk tetapi tidak terbatas pada komunikasi pada milis elektronik, kontrol kode sumber sistem, dan sistem pelacakan yang dikelola oleh, atau atas nama, Google untuk tujuan membahas dan meningkatkan Work, tetapi tidak termasuk komunikasi yang ditandai dengan mencolok atau ditetapkan secara tertulis oleh Anda sebagai "Bukan Kontribusi".                                          
 
-This parameter has only an effect on Android.
+# Grant lisensi hak cipta. Subjek untuk syarat-syarat dan kondisi Perjanjian ini, Anda dengan ini memberikan kepada Google dan kepada penerima perangkat lunak yang didistribusikan oleh Google abadi, di seluruh dunia, non-eksklusif, tidak-charge, tanpa biaya, lisensi hak cipta yang tidak dapat direproduksi, mempersiapkan karya turunan, tampilan publik, melakukan publik, sublisensi, dan mendistribusikan Kontribusi Anda dan karya-karya turunan tersebut.
 
-### Add a map view
+# Hiben lisensi. Subjek untuk syarat-syarat dan kondisi Perjanjian ini, Anda dengan ini memberikan kepada Google dan kepada penerima perangkat lunak yang didistribusikan oleh Google abadi, di seluruh dunia, non-eksklusif, tidak-charge, tanpa biaya, tanpa henti, tidak dapat digunakan (kecuali seperti yang dinyatakan dalam bagian ini) lisensi paten untuk membuat, telah membuat, menggunakan, menawarkan untuk menjual, menjual, menjual, mengimpor, dan jika tidak mentransfer pekerjaan, di mana lisensi tersebut hanya untuk  mereka. kombinasi dari Kontribusi Anda (s) dengan Pekerjaan yang telah diajukan. Jika ada entitas yang melembagakan litigasi paten terhadap Anda atau entitas lain (termasuk klaim silang atau klaim klaim klaim dalam gugatan) yang alleging bahwa Kontribusi Anda, atau Kerja yang telah Anda berkontribusi, merupakan pelanggaran paten langsung atau kontributor, maka setiap lisensi paten diberikan kepada entitas tersebut di bawah Perjanjian ini untuk itu Kontribusi atau Kerja akan berakhir sesuai dengan tanggal litigasi tersebut. 
 
-```dart
-@override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Google Maps Navigation Sample')),
-      body: _navigationSessionInitialized
-          ? GoogleMapsMapView(
-              onViewCreated: _onViewCreated,
-              initialCameraPosition: CameraPosition(
-                // Initialize map to user location.
-                target: _userLocation!,
-                zoom: 15,
-              ),
-              // Other view initialization settings
-            )
-          : const Center(child: CircularProgressIndicator()),
-    );
-  }
-
-```
-
-See the [example](./example) directory for a complete navigation sample app.
-
-### Requesting and handling permissions
-
-The Google Navigation SDK Flutter plugin offers functionalities that necessitate specific permissions from the mobile operating system. These include, but are not limited to, location services, background execution, and receiving background location updates.
-
-> [!NOTE]
-> The management of these permissions falls outside the scope of the Navigation SDKs for Android and iOS. As a developer integrating these SDKs into your applications, you are responsible for requesting and obtaining the necessary permissions from the users of your app.
-
-You can see example of handling permissions in the [main.dart](./example/lib/main.dart) file of the example application:
-
-```dart
-PermissionStatus _locationPermissionStatus = PermissionStatus.denied;
-
-// ...
-
-/// Request permission for accessing the device's location.
-///
-/// Android: Fine and Coarse Location
-/// iOS: CoreLocation (Always and WhenInUse)
-Future<void> _requestLocationPermission() async {
-  final PermissionStatus status = await Permission.location.request();
-
-  setState(() {
-    _locationPermissionStatus = status;
-  });
-}
-
-// ...
-
-@override
-Widget build(BuildContext context) {
-  _requestLocationPermission();
-  ...
-}
-```
-
-## Support for Android Auto and Apple CarPlay
-This plugin is compatible with both Android Auto and Apple CarPlay infotainment systems. For more details, please refer to the respective platform documentation:
-
-- [Android Auto documentation](./ANDROIDAUTO.md)
-- [CarPlay documentation](./CARPLAY.md)
-
-## Known issues
-
-### Compatibility with other libraries
-
-This package uses the Google Maps [Navigation SDK](https://mapsplatform.google.com/maps-products/navigation-sdk/) for Android and iOS, which includes a dependency on the `Google Maps SDK`. If your project includes other flutter libraries with `Google Maps SDK` dependencies, you may encounter build errors due to version conflicts. To avoid this, it's recommended to avoid using multiple packages with Google Maps dependencies.
-
-> [!NOTE]
-> This package provides a `GoogleMapsMapView` widget, which can be used as a classic Google Maps view without navigation. See [Add a map view](#add-a-map-view) for details.
-
-## Contributing
-
-See the [Contributing guide](https://github.com/googlemaps/flutter-navigation-sdk/blob/main/CONTRIBUTING.md).
-
-## Terms of Service
-
-This library uses Google Maps Platform services. Use of Google Maps Platform services through this library is subject to the [Google Maps Platform Terms of Service](https://cloud.google.com/maps-platform/terms).
-
-This library is not a Google Maps Platform Core Service. Therefore, the Google Maps Platform Terms of Service (e.g. Technical Support Services, Service Level Agreements, and Deprecation Policy) do not apply to the code in this library.
-
-## Support
-
-This package is offered via an open source license. It is not governed by the Google Maps Platform Support [Technical Support Services Guidelines](https://cloud.google.com/maps-platform/terms/tssg), the [SLA](https://cloud.google.com/maps-platform/terms/sla), or the [Deprecation Policy](https://cloud.google.com/maps-platform/terms) (however, any Google Maps Platform services used by the library remain subject to the Google Maps Platform Terms of Service).
-
-This package adheres to [semantic versioning](https://semver.org/) to indicate when backwards-incompatible changes are introduced. Accordingly, while the library is in version 0.x, backwards-incompatible changes may be introduced at any time.
-
-If you find a bug, or have a feature request, please [file an issue](https://github.com/googlemaps/flutter-navigation-sdk/issues) on GitHub. If you would like to get answers to technical questions from other Google Maps Platform developers, ask through one of our [developer community channels](https://developers.google.com/maps/developer-community). If you'd like to contribute, please check the [Contributing guide](https://github.com/googlemaps/flutter-navigation-sdk/blob/main/CONTRIBUTING.md).
+# Anda mewakili bahwa Anda secara hukum berhak untuk memberikan lisensi di atas. Jika majikan Anda memiliki hak atas properti intelektual yang Anda buat yang termasuk Kontribusi Anda, Anda mewakili bahwa Anda telah menerima izin untuk membuat Kontribusi atas nama majikan itu, bahwa majikan Anda telah menunggu hak-hak tersebut untuk Kontribusi Anda ke Google, atau bahwa majikan Anda telah mengeksekusi perusahaan CLA yang terpisah dengan Google. Anda mewakili bahwa masing-masing Kontribusi Anda adalah ciptaan asli Anda (lihat bagian 7 untuk pengajuan atas nama orang lain). Anda mewakili bahwa pengajuan Kontribusi Anda termasuk rincian lengkap dari lisensi pihak ketiga atau pembatasan lainnya (termasuk, tetapi tidak terbatas pada, paten dan merek dagang terkait) yang Anda sadari secara pribadi dan yang terkait dengan setiap bagian dari Kontribusi Anda. Anda tidak diharapkan untuk memberikan dukungan untuk Kontribusi Anda, kecuali sejauh Anda ingin memberikan dukungan. Anda dapat memberikan dukungan secara gratis, untuk biaya, atau tidak sama sekali. Kecuali diperlukan oleh hukum yang berlaku atau disepakati secara tertulis, Anda menyediakan Kontribusi Anda pada BASIS "AS IS", TATATANG WARRANTIES OR CONDITIONS OF ANY KIND, baik mengekspresikan atau tersirat, termasuk, tanpa batasan, garansi atau kondisi TITLE, NON - INFRINGEMENT, MERCHANTABILITY, atau FITNESS UNTUK PARTICULPURPRPOSY.Jika Anda ingin mengajukan pekerjaan yang bukan penciptaan asli Anda, Anda dapat mengirimkannya ke Google secara terpisah dari Kontribusi apapun, mengidentifikasi rincian lengkap dari sumbernya dan dari lisensi atau pembatasan lainnya (termasuk, tetapi tidak terbatas pada, paten terkait, merek dagang, dan perjanjian lisensi) yang Anda sadari secara pribadi, dan secara mencolok menandai pekerjaan sebagai "Diterbitkan atas nama pihak                                       :                                         
+#[Syarat](https://developers.google.com/terms/site-terms)
+[Privasi](https://policies.google.com/privacy?hl=en)
+[Homepage](https://www.google.co.id)
+*[Topics](https://github.com/topics)
+[non-google-cla](https://github.com/topics/xml)
+*kueri
+<Individual Perjanjian>
+<Individual perjanjian we have pada file untuk Anda:
+Perjanjian	Nama Tanggal Ditandatangani	Mengelola>
+# referensi 
+[License txt](https://creativecommons.org/licenses/by/4.0/legalcode.txt)
+[License by 4.0](https://creativecommons.org/licenses/by/4.0/)
+@ Google Individual CLA 
+# signature: AriesTriputranto
